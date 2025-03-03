@@ -1,71 +1,141 @@
 <template>
     <div>
-        <nav class="flex justify-between items-center px-8 md:px-12 lg:px-32 xl:px-48 py-4 bg-gray-400">
-            <div class="navbar-utility flex gap-2">
-                <img src="https://imgs.search.brave.com/5z3y1_Y3lst6b4j7yo9x-jS0MJ5yQZmmLUHNDcCDdkU/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTM0/NDMyMzUyOC9waG90/by9zaG90LW9mLWEt/eW91bmctYnVzaW5l/c3NtYW4td29ya2lu/Zy1vbi1hLWNvbXB1/dGVyLWluLWFuLW9m/ZmljZS5qcGc_cz02/MTJ4NjEyJnc9MCZr/PTIwJmM9NjJJX3B4/ZExfZ3VQZmpXSzA1/VXlKbzIxWVNNQ29f/aDB5bnNjNm5IWmgz/bz0"
-                    alt="" class="w-10 h-10 object-cover rounded-full" />
-                <button class="flex justify-center items-center gap-2 bg-gray-200 px-4 py-2 rounded-full font-semibold">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                        class="icon icon-tabler icons-tabler-outline icon-tabler-search">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
-                        <path d="M21 21l-6 -6" />
-                    </svg>
-                    <span>Search</span>
-                </button>
-                <div class="bg-gray-200 flex justify-center items-center gap-3 px-4 py-2 rounded-full font-semibold">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                        class="icon icon-tabler icons-tabler-outline icon-tabler-calendar-plus">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <path d="M12.5 21h-6.5a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v5" />
-                        <path d="M16 3v4" />
-                        <path d="M8 3v4" />
-                        <path d="M4 11h16" />
-                        <path d="M16 19h6" />
-                        <path d="M19 16v6" />
-                    </svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                        fill="currentColor" class="icon icon-tabler icons-tabler-filled icon-tabler-layout">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <path d="M8 3a3 3 0 0 1 3 3v1a3 3 0 0 1 -3 3h-2a3 3 0 0 1 -3 -3v-1a3 3 0 0 1 3 -3z" />
-                        <path d="M8 12a3 3 0 0 1 3 3v3a3 3 0 0 1 -3 3h-2a3 3 0 0 1 -3 -3v-3a3 3 0 0 1 3 -3z" />
-                        <path d="M18 3a3 3 0 0 1 3 3v12a3 3 0 0 1 -3 3h-2a3 3 0 0 1 -3 -3v-12a3 3 0 0 1 3 -3z" />
-                    </svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                        class="icon icon-tabler icons-tabler-outline icon-tabler-books">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <path d="M5 4m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
-                        <path d="M9 4m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
-                        <path d="M5 8h4" />
-                        <path d="M9 16h4" />
-                        <path
-                            d="M13.803 4.56l2.184 -.53c.562 -.135 1.133 .19 1.282 .732l3.695 13.418a1.02 1.02 0 0 1 -.634 1.219l-.133 .041l-2.184 .53c-.562 .135 -1.133 -.19 -1.282 -.732l-3.695 -13.418a1.02 1.02 0 0 1 .634 -1.219l.133 -.041z" />
-                        <path d="M14 9l4 -1" />
-                        <path d="M16 16l3.923 -.98" />
-                    </svg>
+        <div class="desktop-nav hidden md:block">
+            <nav class="flex justify-between items-center px-8 md:px-12 lg:px-32 xl:px-48 py-4 bg-gray-400">
+                <div class="navbar-utility flex gap-2">
+                    <img src="https://imgs.search.brave.com/5z3y1_Y3lst6b4j7yo9x-jS0MJ5yQZmmLUHNDcCDdkU/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTM0/NDMyMzUyOC9waG90/by9zaG90LW9mLWEt/eW91bmctYnVzaW5l/c3NtYW4td29ya2lu/Zy1vbi1hLWNvbXB1/dGVyLWluLWFuLW9m/ZmljZS5qcGc_cz02/MTJ4NjEyJnc9MCZr/PTIwJmM9NjJJX3B4/ZExfZ3VQZmpXSzA1/VXlKbzIxWVNNQ29f/aDB5bnNjNm5IWmgz/bz0"
+                        alt="" class="w-10 h-10 object-cover rounded-full" />
+                    <button
+                        class="flex justify-center items-center gap-2 bg-gray-200 px-4 py-2 rounded-full font-semibold">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="icon icon-tabler icons-tabler-outline icon-tabler-search">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
+                            <path d="M21 21l-6 -6" />
+                        </svg>
+                        <span>Search</span>
+                    </button>
+                    <div
+                        class="bg-gray-200 flex justify-center items-center gap-3 px-4 py-2 rounded-full font-semibold">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="icon icon-tabler icons-tabler-outline icon-tabler-calendar-plus">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M12.5 21h-6.5a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v5" />
+                            <path d="M16 3v4" />
+                            <path d="M8 3v4" />
+                            <path d="M4 11h16" />
+                            <path d="M16 19h6" />
+                            <path d="M19 16v6" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="currentColor" class="icon icon-tabler icons-tabler-filled icon-tabler-layout">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M8 3a3 3 0 0 1 3 3v1a3 3 0 0 1 -3 3h-2a3 3 0 0 1 -3 -3v-1a3 3 0 0 1 3 -3z" />
+                            <path d="M8 12a3 3 0 0 1 3 3v3a3 3 0 0 1 -3 3h-2a3 3 0 0 1 -3 -3v-3a3 3 0 0 1 3 -3z" />
+                            <path d="M18 3a3 3 0 0 1 3 3v12a3 3 0 0 1 -3 3h-2a3 3 0 0 1 -3 -3v-12a3 3 0 0 1 3 -3z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="icon icon-tabler icons-tabler-outline icon-tabler-books">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M5 4m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
+                            <path d="M9 4m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
+                            <path d="M5 8h4" />
+                            <path d="M9 16h4" />
+                            <path
+                                d="M13.803 4.56l2.184 -.53c.562 -.135 1.133 .19 1.282 .732l3.695 13.418a1.02 1.02 0 0 1 -.634 1.219l-.133 .041l-2.184 .53c-.562 .135 -1.133 -.19 -1.282 -.732l-3.695 -13.418a1.02 1.02 0 0 1 .634 -1.219l.133 -.041z" />
+                            <path d="M14 9l4 -1" />
+                            <path d="M16 16l3.923 -.98" />
+                        </svg>
+                    </div>
                 </div>
-            </div>
-            <div class="navbar-button">
-                <button class="flex justify-center items-center gap-2 bg-gray-200 px-4 py-2 rounded-full font-semibold">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                        class="icon icon-tabler icons-tabler-outline icon-tabler-login-2">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <path d="M9 8v-2a2 2 0 0 1 2 -2h7a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-7a2 2 0 0 1 -2 -2v-2" />
-                        <path d="M3 12h13l-3 -3" />
-                        <path d="M13 15l3 -3" />
-                    </svg>
-                    <span>Sign In</span>
-                </button>
-            </div>
-        </nav>
+                <div class="navbar-button">
+                    <button
+                        class="flex justify-center items-center gap-2 bg-gray-200 px-4 py-2 rounded-full font-semibold">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="icon icon-tabler icons-tabler-outline icon-tabler-login-2">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M9 8v-2a2 2 0 0 1 2 -2h7a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-7a2 2 0 0 1 -2 -2v-2" />
+                            <path d="M3 12h13l-3 -3" />
+                            <path d="M13 15l3 -3" />
+                        </svg>
+                        <span>Sign In</span>
+                    </button>
+                </div>
+            </nav>
+        </div>
+        <div class="mobile-nav block md:hidden">
+            <nav class="flex justify-between items-center gap-2 px-8 md:px-12 lg:px-32 xl:px-48 py-4 bg-gray-400">
+                <div class="navbar-utility flex gap-2 w-100">
+                    <img src="https://imgs.search.brave.com/5z3y1_Y3lst6b4j7yo9x-jS0MJ5yQZmmLUHNDcCDdkU/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTM0/NDMyMzUyOC9waG90/by9zaG90LW9mLWEt/eW91bmctYnVzaW5l/c3NtYW4td29ya2lu/Zy1vbi1hLWNvbXB1/dGVyLWluLWFuLW9m/ZmljZS5qcGc_cz02/MTJ4NjEyJnc9MCZr/PTIwJmM9NjJJX3B4/ZExfZ3VQZmpXSzA1/VXlKbzIxWVNNQ29f/aDB5bnNjNm5IWmgz/bz0"
+                        alt="" class="w-10 h-10 object-cover rounded-full" />
+                    <button
+                        class="flex justify-center items-center gap-2 bg-gray-200 py-2 rounded-full font-semibold w-full">
+                        <span>Search</span>
+                    </button>
+                </div>
+                <div class="navbar-button flex gap-2">
+                    <button
+                        class="flex justify-center items-center gap-2 bg-gray-200 px-2 py-2 rounded-full font-semibold">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="icon icon-tabler icons-tabler-outline icon-tabler-calendar-plus">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M12.5 21h-6.5a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v5" />
+                            <path d="M16 3v4" />
+                            <path d="M8 3v4" />
+                            <path d="M4 11h16" />
+                            <path d="M16 19h6" />
+                            <path d="M19 16v6" />
+                        </svg>
+                    </button>
+                    <button
+                        class="flex justify-center items-center gap-2 bg-gray-200 px-2 py-2 rounded-full font-semibold">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="currentColor" class="icon icon-tabler icons-tabler-filled icon-tabler-layout">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M8 3a3 3 0 0 1 3 3v1a3 3 0 0 1 -3 3h-2a3 3 0 0 1 -3 -3v-1a3 3 0 0 1 3 -3z" />
+                            <path d="M8 12a3 3 0 0 1 3 3v3a3 3 0 0 1 -3 3h-2a3 3 0 0 1 -3 -3v-3a3 3 0 0 1 3 -3z" />
+                            <path d="M18 3a3 3 0 0 1 3 3v12a3 3 0 0 1 -3 3h-2a3 3 0 0 1 -3 -3v-12a3 3 0 0 1 3 -3z" />
+                        </svg>
+                    </button>
+                    <button
+                        class="flex justify-center items-center gap-2 bg-gray-200 px-2 py-2 rounded-full font-semibold">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="icon icon-tabler icons-tabler-outline icon-tabler-books">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M5 4m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
+                            <path d="M9 4m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
+                            <path d="M5 8h4" />
+                            <path d="M9 16h4" />
+                            <path
+                                d="M13.803 4.56l2.184 -.53c.562 -.135 1.133 .19 1.282 .732l3.695 13.418a1.02 1.02 0 0 1 -.634 1.219l-.133 .041l-2.184 .53c-.562 .135 -1.133 -.19 -1.282 -.732l-3.695 -13.418a1.02 1.02 0 0 1 .634 -1.219l.133 -.041z" />
+                            <path d="M14 9l4 -1" />
+                            <path d="M16 16l3.923 -.98" />
+                        </svg>
+                    </button>
+                    <button
+                        class="flex justify-center items-center gap-2 bg-gray-200 px-2 py-2 rounded-full font-semibold">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="icon icon-tabler icons-tabler-outline icon-tabler-login-2">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M9 8v-2a2 2 0 0 1 2 -2h7a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-7a2 2 0 0 1 -2 -2v-2" />
+                            <path d="M3 12h13l-3 -3" />
+                            <path d="M13 15l3 -3" />
+                        </svg>
+                    </button>
+                </div>
+            </nav>
+        </div>
         <div class="content px-8 md:px-12 lg:px-32 xl:px-48 py-4">
             <div class="grid grid-cols-8 w-full gap-8">
                 <div class="col-span-8 2xl:col-span-6">
-                    <div class="comic-info md:flex gap-8">
+                    <div class="comic-info lg:flex gap-8">
                         <div class="comic-cover w-fit">
                             <img src="https://assets.bwbx.io/images/users/iqjWHBFdfxIU/i3sY5OlfH3mc/v1/340x260.jpg"
                                 class="min-w-56 max-w-56 h-80 object-cover rounded-lg" alt="">
@@ -114,7 +184,7 @@
                                 creative in navigating trade curbs and developing more efficient AI models. The
                                 valuations are derived from Pitchbook data and previous Bloomberg News reporting.
                             </div>
-                            <div class="flex h-10 gap-2 mt-4">
+                            <div class="flex flex-col md:flex-row h-full md:h-10 gap-2 mt-4">
                                 <button
                                     class="px-3 py-2 bg-gray-50 ring-1 ring-gray-500/10 ring-inset rounded-lg flex justify-center items-center gap-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -138,7 +208,11 @@
                                     <span>New Chapter</span>
                                 </button>
                                 <div
-                                    class="divider mx-2 w-1 h-full rounded-full bg-gray-50 ring-1 ring-gray-500/10 ring-inset">
+                                    class="vertical-divider mx-2 w-1 h-full rounded-full bg-gray-50 ring-1 ring-gray-500/10 ring-inset hidden md:block">
+                                </div>
+                                <div
+                                    class="horizontal-divider my-1 rounded-full bg-gray-50 ring-1 ring-gray-500/10 ring-inset h-1 w-full block md:hidden">
+
                                 </div>
                                 <button
                                     class="px-10 py-2 bg-gray-50 ring-1 ring-gray-500/10 ring-inset rounded-lg flex justify-center items-center gap-2">
@@ -168,7 +242,7 @@
                         </div>
                     </div>
                     <div class="comic-socials mt-8 grid grid-cols-2 gap-3">
-                        <div class="col-span-2">
+                        <div class="col-span-2 hidden md:block">
                             <div
                                 class="p-2 py-3 h-16 bg-gray-50 ring-1 ring-gray-500/10 ring-inset rounded-lg flex items-center">
                                 <div
@@ -180,7 +254,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-span-1">
+                        <div class="col-span-2 lg:col-span-1">
                             <div
                                 class="p-2 py-3 h-16 bg-gray-50 ring-1 ring-gray-500/10 ring-inset rounded-lg flex items-center justify-between">
                                 <div class="h-full flex items-center">
@@ -204,7 +278,7 @@
                                 </button>
                             </div>
                         </div>
-                        <div class="col-span-1">
+                        <div class="col-span-2 lg:col-span-1">
                             <div
                                 class="p-2 py-3 h-16 bg-gray-50 ring-1 ring-gray-500/10 ring-inset rounded-lg flex items-center justify-between">
                                 <div class="h-full flex items-center">
@@ -284,7 +358,7 @@
                             <div class="flex flex-col gap-2">
                                 <p class="text-lg">The DeepSeek Competitors Vying to Be China's</p>
                                 <span class="text-sm">Drama</span>
-                                <div class="flex gap-2">
+                                <div class="flex flex-wrap gap-2">
                                     <span
                                         class="inline-block rounded-md bg-gray-50 px-2 py-1 text-sm font-medium text-gray-600 ring-1 ring-gray-500/10 ring-inset whitespace-nowrap">
                                         <span>Information</span>
