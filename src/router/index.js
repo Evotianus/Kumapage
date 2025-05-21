@@ -3,8 +3,14 @@ import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
 import View from "../views/View.vue";
 import Detail from "../views/Detail.vue";
+import Home from "../views/Home.vue";
 
 const routes = [
+  {
+    path: "/",
+    name: "Home",
+    component: Home,
+  },
   {
     path: "/login",
     name: "Login",
@@ -16,12 +22,12 @@ const routes = [
     component: Register,
   },
   {
-    path: "/view",
+    path: "/comics/:comicId/:chapterId",
     name: "View",
     component: View,
   },
   {
-    path: "/detail",
+    path: "/comics/:comicId",
     name: "Detail",
     component: Detail,
   },

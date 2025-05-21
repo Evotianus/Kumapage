@@ -1,18 +1,24 @@
+<script setup>
+import HelloWorld from "../components/HelloWorld.vue";
+import ChapterCard from "../components/ChapterCard.vue";
+
+import { ref } from 'vue';
+import { useRoute } from 'vue-router';
+
+const route = useRoute();
+
+const comicId = ref(route.params.comicId);
+
+// export default {
+//     name: 'View',
+// }
+</script>
 <template>
     <div class="flex justify-center">
         <div class="content px-8 md:px-12 lg:px-32 xl:px-48 py-4 w-full">
             <div class="flex flex-col justify-center items-center w-full gap-4">
                 <span class="text-lg font-semibold">Next Chapter</span>
-                <div class="bg-gray-50 ring-1 ring-gray-500/10 ring-inset rounded-lg p-2 flex items-center">
-                    <div class="flex items-center gap-4">
-                        <img src="https://assets.bwbx.io/images/users/iqjWHBFdfxIU/ixfNTiyYtG1c/v0/459x306.webp" alt=""
-                            class="h-full w-36 rounded-lg">
-                        <div class="flex flex-col">
-                            <p class="font-semibold text-lg">Chapter 100</p>
-                            <span>Feb 27, 2025</span>
-                        </div>
-                    </div>
-                </div>
+                <ChapterCard number="100" date="2025-10-01" />
                 <button class="bg-gray-200 w-fit px-4 py-2 rounded-full font-semibold mt-2">
                     Options
                 </button>
@@ -95,9 +101,3 @@
         </div>
     </div>
 </template>
-
-<script>
-export default {
-    name: 'View',
-}
-</script>

@@ -1,3 +1,56 @@
+<script setup>
+import ChapterCard from "../components/ChapterCard.vue";
+import CommentSection from "../components/CommentSection.vue";
+import CreditSection from "../components/CreditSection.vue";
+
+import { ref, onMounted, watch } from 'vue';
+import { useRoute } from 'vue-router';
+import axios from 'axios';
+
+axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL + "/api";
+axios.defaults.headers.common["Authorization"] = "Bearer 66tR3dHK19eZMR8qfvtvgFH7KBdmDsot2sk3iuyzyyTDRcvh6uY6iAOqk5MvQdtc";
+
+// State to track if the comic is in the library
+const isInLibrary = ref(false);
+
+// Function to toggle library status
+const toggleLibraryStatus = () => {
+    isInLibrary.value = !isInLibrary.value;
+};
+
+const route = useRoute();
+
+const comicId = ref(route.params.comicId);
+const comic = ref(null);
+
+onMounted(() => {
+    console.log('Comic ID:', comicId.value);
+
+    try {
+        axios.get(`/comics/${comicId.value}`)
+            .then(response => {
+                comic.value = response.data.data;
+                console.log('Comic data:', comic.value);
+            })
+            .catch(error => {
+                console.error('Error fetching comic data:', error);
+            });
+    } catch (error) {
+        console.error('Error during mounted lifecycle:', error);
+    }
+    // You could fetch comic data based on this ID
+    // fetchComicData(comicId.value);
+});
+
+// If you need to react to route parameter changes
+// (useful for navigation between different comics without leaving the View component)
+watch(() => route.params.comicId, (newId) => {
+    comicId.value = newId;
+    console.log('Comic ID changed to:', comicId.value);
+    // fetchComicData(comicId.value);
+});
+</script>
+
 <template>
     <div>
         <div class="content px-8 md:px-12 lg:px-32 xl:px-48 py-4">
@@ -5,20 +58,24 @@
                 <div class="col-span-8 2xl:col-span-6">
                     <div class="comic-info lg:flex gap-8">
                         <div class="comic-cover w-fit">
-                            <img src="https://assets.bwbx.io/images/users/iqjWHBFdfxIU/i3sY5OlfH3mc/v1/340x260.jpg"
+                            <img v-if="comic" :src="comic.image" class="min-w-56 max-w-56 h-80 object-cover rounded-lg"
+                                alt="">
+                            <img v-else
+                                src="https://assets.bwbx.io/images/users/iqjWHBFdfxIU/i3sY5OlfH3mc/v1/340x260.jpg"
                                 class="min-w-56 max-w-56 h-80 object-cover rounded-lg" alt="">
                         </div>
                         <div class="comic-detail">
-                            <h1 class="text-6xl font-bold">The DeepSeek Competitors Vying to Be China’s Next AI Champion
+                            <h1 class="text-6xl font-bold">{{ comic ? comic.name : 'Loading...' }}
                             </h1>
                             <div class="detail-tags mt-4 flex gap-2">
                                 <span
-                                    class="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-sm font-medium text-green-700 ring-1 ring-green-600/20 ring-inset">Ongoing</span>
+                                    class="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-sm font-medium text-green-700 ring-1 ring-green-600/20 ring-inset">{{
+                                        comic ? comic.status : 'Loading...' }}</span>
                                 <span
                                     class="inline-flex gap-2 items-center rounded-md bg-gray-50 px-2 py-1 text-sm font-medium text-gray-600 ring-1 ring-gray-500/10 ring-inset">
                                     <img src="https://imgs.search.brave.com/8cnLO-1k9cSqfKc0AzHje3mjsXrPbnKUdhwLUpx3FIc/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/cHJlbWl1bS1waG90/by9mbGFnLWNoaW5h/LWNoaW5hLWZsYWct/Y2hpbmVzZS1mbGFn/XzEwNDMzNy0xMDIw/NS5qcGc_c2VtdD1h/aXNfaHlicmlk"
                                         class="w-5 h-5 object-cover object-left rounded-full" alt="">
-                                    <span>News</span>
+                                    <span>{{ comic ? comic.comic_type : 'Loading...' }}</span>
                                 </span>
                                 <span
                                     class="inline-flex gap-2 items-center rounded-md bg-gray-50 px-2 py-1 text-sm font-medium text-gray-600 ring-1 ring-gray-500/10 ring-inset">
@@ -29,32 +86,22 @@
                                         <path
                                             d="M17 3.34a10 10 0 1 1 -15 8.66l.005 -.324a10 10 0 0 1 14.995 -8.336m-5 2.66a1 1 0 0 0 -1 1v5.026l.009 .105l.02 .107l.04 .129l.048 .102l.046 .078l.042 .06l.069 .08l.088 .083l.083 .062l3 2a1 1 0 1 0 1.11 -1.664l-2.555 -1.704v-4.464a1 1 0 0 0 -.883 -.993z" />
                                     </svg>
-                                    <span>Feb 26, 2025</span>
+                                    <span>{{ comic && comic.updated_at ? comic.updated_at : 'Feb 26, 2025' }}</span>
                                 </span>
                                 <span
                                     class="inline-flex gap-2 items-center rounded-md bg-gray-50 px-2 py-1 text-sm font-medium text-gray-600 ring-1 ring-gray-500/10 ring-inset">
-                                    <span>Information</span>
+                                    <span>{{ comic ? comic.language : 'Loading...' }}</span>
                                 </span>
                             </div>
                             <div
                                 class="detail-description mt-4 bg-gray-50 px-4 py-2 rounded-lg ring 1 ring-gray-500/10 ring-inset">
-                                The next DeepSeek to disrupt the global artificial intelligence industry could also come
-                                from China.
+                                {{ comic ? comic.description : 'Loading...' }}
                                 <br><br>
-                                The country of 1.4 billion has seeded several promising AI startups and projects, while
-                                its leading internet players have spent years investing and developing the
-                                infrastructure to support such new ventures. With the DeepSeek experience casting doubt
-                                over the need for bleeding-edge expensive AI hardware from the likes of Nvidia Corp. —
-                                which the US has banned from sale in China — the prospects of China’s up-and-coming AI
-                                companies look to be improving.
-                                <br><br>
-                                Here are the rising companies and services to keep an eye on, as Chinese businesses get
-                                creative in navigating trade curbs and developing more efficient AI models. The
-                                valuations are derived from Pitchbook data and previous Bloomberg News reporting.
+                                {{ comic ? comic.synopsis : 'Loading...' }}
                             </div>
                             <div class="flex flex-col md:flex-row h-full md:h-10 gap-2 mt-4">
                                 <button
-                                    class="px-3 py-2 bg-gray-50 ring-1 ring-gray-500/10 ring-inset rounded-lg flex justify-center items-center gap-2">
+                                    class="px-3 py-2 bg-gray-50 ring-1 ring-gray-500/10 ring-inset rounded-lg flex justify-center items-center gap-2 transition-all duration-300 hover:bg-gray-100 hover:ring-gray-500/20 active:scale-95">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                         fill="currentColor"
                                         class="icon icon-tabler icons-tabler-filled icon-tabler-player-play">
@@ -65,7 +112,7 @@
                                     <span>Start Reading</span>
                                 </button>
                                 <button
-                                    class="px-3 py-2 bg-gray-50 ring-1 ring-gray-500/10 ring-inset rounded-lg flex justify-center items-center gap-2">
+                                    class="px-3 py-2 bg-gray-50 ring-1 ring-gray-500/10 ring-inset rounded-lg flex justify-center items-center gap-2 transition-all duration-300 hover:bg-gray-100 hover:ring-gray-500/20 active:scale-95">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                         fill="currentColor"
                                         class="icon icon-tabler icons-tabler-filled icon-tabler-player-play">
@@ -80,22 +127,24 @@
                                 </div>
                                 <div
                                     class="horizontal-divider my-1 rounded-full bg-gray-50 ring-1 ring-gray-500/10 ring-inset h-1 w-full block md:hidden">
-
                                 </div>
                                 <button
-                                    class="px-10 py-2 bg-gray-50 ring-1 ring-gray-500/10 ring-inset rounded-lg flex justify-center items-center gap-2">
+                                    class="add-to-library-btn px-10 py-2 bg-gray-50 ring-1 ring-gray-500/10 ring-inset rounded-lg flex justify-center items-center gap-2 transition-all duration-300 hover:bg-gray-100 hover:ring-gray-500/20 hover:shadow-sm active:scale-95"
+                                    @click="toggleLibraryStatus">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                         stroke-linejoin="round"
-                                        class="icon icon-tabler icons-tabler-outline icon-tabler-plus">
+                                        :class="['icon transition-transform duration-300', isInLibrary ? 'text-green-600 rotate-45' : '']">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                         <path d="M12 5l0 14" />
                                         <path d="M5 12l14 0" />
                                     </svg>
-                                    <span>Add to Library</span>
+                                    <span :class="{ 'text-green-600': isInLibrary }">{{ isInLibrary ? 'Added to Library'
+                                        :
+                                        'Add to Library' }}</span>
                                 </button>
                                 <button
-                                    class="px-3 py-2 bg-gray-50 ring-1 ring-gray-500/10 ring-inset rounded-lg flex justify-center items-center gap-2">
+                                    class="px-3 py-2 bg-gray-50 ring-1 ring-gray-500/10 ring-inset rounded-lg flex justify-center items-center gap-2 transition-all duration-300 hover:bg-gray-100 hover:ring-gray-500/20 active:scale-95">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
                                         fill="currentColor"
                                         class="icon icon-tabler icons-tabler-filled icon-tabler-bell">
@@ -109,68 +158,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="comic-socials mt-8 grid grid-cols-2 gap-3">
-                        <div class="col-span-2 hidden md:block">
-                            <div
-                                class="p-2 py-3 h-16 bg-gray-50 ring-1 ring-gray-500/10 ring-inset rounded-lg flex items-center">
-                                <div
-                                    class="divider mx-2 w-1 h-full rounded-full bg-gray-200 ring-1 ring-gray-500/10 ring-inset">
-                                </div>
-                                <div class="flex flex-col">
-                                    <p>Share Kumapage</p>
-                                    <span class="text-sm">to your friends</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-span-2 lg:col-span-1">
-                            <div
-                                class="p-2 py-3 h-16 bg-gray-50 ring-1 ring-gray-500/10 ring-inset rounded-lg flex items-center justify-between">
-                                <div class="h-full flex items-center">
-                                    <div
-                                        class="divider mx-2 mr-4 w-1 h-full rounded-full bg-gray-200 ring-1 ring-gray-500/10 ring-inset">
-                                    </div>
-                                    <div class="flex flex-col">
-                                        <p class="text-lg">Share Kumapage</p>
-                                        <span class="text-sm">to your friends</span>
-                                    </div>
-                                </div>
-                                <button class="px-4 py-2 bg-red-400 rounded-full text-white flex items-center gap-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                                        fill="currentColor"
-                                        class="icon icon-tabler icons-tabler-filled icon-tabler-alert-hexagon">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                        <path
-                                            d="M10.425 1.414a3.33 3.33 0 0 1 3.026 -.097l.19 .097l6.775 3.995l.096 .063l.092 .077l.107 .075a3.224 3.224 0 0 1 1.266 2.188l.018 .202l.005 .204v7.284c0 1.106 -.57 2.129 -1.454 2.693l-.17 .1l-6.803 4.302c-.918 .504 -2.019 .535 -3.004 .068l-.196 -.1l-6.695 -4.237a3.225 3.225 0 0 1 -1.671 -2.619l-.007 -.207v-7.285c0 -1.106 .57 -2.128 1.476 -2.705l6.95 -4.098zm1.585 13.586l-.127 .007a1 1 0 0 0 0 1.986l.117 .007l.127 -.007a1 1 0 0 0 0 -1.986l-.117 -.007zm-.01 -8a1 1 0 0 0 -.993 .883l-.007 .117v4l.007 .117a1 1 0 0 0 1.986 0l.007 -.117v-4l-.007 -.117a1 1 0 0 0 -.993 -.883z" />
-                                    </svg>
-                                    <span>Report</span>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="col-span-2 lg:col-span-1">
-                            <div
-                                class="p-2 py-3 h-16 bg-gray-50 ring-1 ring-gray-500/10 ring-inset rounded-lg flex items-center justify-between">
-                                <div class="h-full flex items-center">
-                                    <div
-                                        class="divider mx-2 w-1 h-full rounded-full bg-gray-200 ring-1 ring-gray-500/10 ring-inset">
-                                    </div>
-                                    <div class="flex flex-col">
-                                        <p>Share Kumapage</p>
-                                        <span class="text-sm">to your friends</span>
-                                    </div>
-                                </div>
-                                <button class="px-4 py-2 bg-red-400 rounded-full text-white flex items-center gap-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                                        fill="currentColor"
-                                        class="icon icon-tabler icons-tabler-filled icon-tabler-alert-hexagon">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                        <path
-                                            d="M10.425 1.414a3.33 3.33 0 0 1 3.026 -.097l.19 .097l6.775 3.995l.096 .063l.092 .077l.107 .075a3.224 3.224 0 0 1 1.266 2.188l.018 .202l.005 .204v7.284c0 1.106 -.57 2.129 -1.454 2.693l-.17 .1l-6.803 4.302c-.918 .504 -2.019 .535 -3.004 .068l-.196 -.1l-6.695 -4.237a3.225 3.225 0 0 1 -1.671 -2.619l-.007 -.207v-7.285c0 -1.106 .57 -2.128 1.476 -2.705l6.95 -4.098zm1.585 13.586l-.127 .007a1 1 0 0 0 0 1.986l.117 .007l.127 -.007a1 1 0 0 0 0 -1.986l-.117 -.007zm-.01 -8a1 1 0 0 0 -.993 .883l-.007 .117v4l.007 .117a1 1 0 0 0 1.986 0l.007 -.117v-4l-.007 -.117a1 1 0 0 0 -.993 -.883z" />
-                                    </svg>
-                                    <span>Report</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                    <CreditSection />
                     <div class="comic-episodes mt-6">
                         <div class="episodes-info flex justify-between items-center">
                             <p class="text-2xl font-semibold">100 Chapters</p>
@@ -188,8 +176,8 @@
                                 </svg>
                             </button>
                         </div>
-                        <div class="episodes-list grid grid-cols-3 gap-4 mt-6">
-                            <div class="bg-gray-50 ring-1 ring-gray-500/10 ring-inset rounded-lg p-2 flex items-center">
+                        <div class="episodes-list grid grid-cols-3 gap-4 mt-6" v-if="comic != null">
+                            <!-- <div class="bg-gray-50 ring-1 ring-gray-500/10 ring-inset rounded-lg p-2 flex items-center">
                                 <div class="flex items-center gap-4">
                                     <img src="https://assets.bwbx.io/images/users/iqjWHBFdfxIU/ixfNTiyYtG1c/v0/459x306.webp"
                                         alt="" class="h-full w-36 rounded-lg">
@@ -198,42 +186,37 @@
                                         <span>Feb 27, 2025</span>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
+                            <div v-for="section in comic.sections" :key="section.id">
+                                    <a :href="'/comics' + '/' + comic.id + '/' + section.id">
+                                    <ChapterCard :number="section.number" :date="section.updated_at" />
+                                </a>
+                                </div>
                         </div>
                     </div>
-                    <div class="comic-comments mt-6 bg-gray-200 h-96 rounded-lg flex justify-center items-center">
-                        <button
-                            class="bg-gray-50 ring-1 ring-gray-500/10 ring-inset flex items-center gap-2 rounded-lg px-6 py-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round"
-                                class="icon icon-tabler icons-tabler-outline icon-tabler-messages">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <path d="M21 14l-3 -3h-7a1 1 0 0 1 -1 -1v-6a1 1 0 0 1 1 -1h9a1 1 0 0 1 1 1v10" />
-                                <path d="M14 15v2a1 1 0 0 1 -1 1h-7l-3 3v-10a1 1 0 0 1 1 -1h2" />
-                            </svg>
-                            <span class="text-lg font-semibold">Click to load comments</span>
-                        </button>
-                    </div>
+                    <CommentSection />
                 </div>
                 <div class="col-span-2 hidden 2xl:block">
                     <div class="other-comics">
                         <div
                             class="bg-gray-50 ring-1 ring-gray-500/10 ring-inset p-4 rounded-lg flex items-center gap-4">
-                            <img src="https://assets.bwbx.io/images/users/iqjWHBFdfxIU/i3sY5OlfH3mc/v1/340x260.jpg"
+                            <img v-if="comic" :src="comic.image" class="min-w-20 max-w-20 h-28 object-cover rounded-lg"
+                                alt="">
+                            <img v-else
+                                src="https://assets.bwbx.io/images/users/iqjWHBFdfxIU/i3sY5OlfH3mc/v1/340x260.jpg"
                                 class="min-w-20 max-w-20 h-28 object-cover rounded-lg" alt="">
                             <span class="text-3xl font-bold">1</span>
                             <div class="flex flex-col gap-2">
-                                <p class="text-lg">The DeepSeek Competitors Vying to Be China's</p>
-                                <span class="text-sm">Drama</span>
+                                <p class="text-lg">{{ comic ? comic.name : 'Loading...' }}</p>
+                                <span class="text-sm">{{ comic ? comic.comic_type : 'Loading...' }}</span>
                                 <div class="flex flex-wrap gap-2">
                                     <span
                                         class="inline-block rounded-md bg-gray-50 px-2 py-1 text-sm font-medium text-gray-600 ring-1 ring-gray-500/10 ring-inset whitespace-nowrap">
-                                        <span>Information</span>
+                                        <span>{{ comic ? comic.language : 'Loading...' }}</span>
                                     </span>
-                                    <span
+                                    <span v-if="comic && comic.alternative_name"
                                         class="inline-block rounded-md bg-gray-50 px-2 py-1 text-sm font-medium text-gray-600 ring-1 ring-gray-500/10 ring-inset whitespace-nowrap">
-                                        <span>Information</span>
+                                        <span>{{ comic.alternative_name }}</span>
                                     </span>
                                 </div>
                             </div>
@@ -244,9 +227,3 @@
         </div>
     </div>
 </template>
-
-<script>
-export default {
-    name: 'Detail',
-}
-</script>
